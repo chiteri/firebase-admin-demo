@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
-    post: {
+    food: {
         width: '30%',
         padding: '16px',
         textAlign: 'center',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function Food (props) {
     const classes = useStyles();
     return (
-        <article className={classes.post} onClick={props.clicked}>          
+        <article className={classes.food} onClick={props.clicked}>          
           <h4>{props.title}</h4>
           <div className={classes.info}>
             <div className={classes.details}>{props.author}</div>

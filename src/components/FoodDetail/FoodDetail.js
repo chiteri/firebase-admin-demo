@@ -44,6 +44,14 @@ class FoodDetail extends Component {
         } 
     }
     
+    // Delete an individual food item 
+    deleteFoodHandler = () => {
+        axios.delete('https://jsonplaceholder.typicode.com/posts/'+this.props.id)
+        .then((response) => {
+            console.log(response);
+        });
+    }
+    
     render() {
         const { classes } = this.props;
         let post = <p style={{textAlign:'center'}}>Please select a food item! </p>;
@@ -59,7 +67,11 @@ class FoodDetail extends Component {
                     <p>{this.state.loadedFood.body}</p>
                     <p>{this.state.loadedFood.author}</p>
                     <div className={classes.edit}>
-                        <Button variant="contained" color="secondary" className={classes.padded}> Delete Food </Button>
+                        <Button 
+                            variant="contained" 
+                            color="secondary" 
+                            className={classes.padded}
+                            onClick={this.deleteFoodHandler}> Delete Food </Button>
                     </div>
                 </div>
             );

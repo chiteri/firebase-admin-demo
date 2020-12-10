@@ -22,7 +22,7 @@ class NewFood extends Component {
     state = {
         title: '', 
         content: '',
-        author: 'Jane'
+        author: 'Joh Doe'
     }
 
     postDataHandler = () => {
@@ -60,7 +60,7 @@ class NewFood extends Component {
                             variant="contained" 
                             color="primary" 
                             className={classes.padded}
-                            onClick={this.postDataHandler}> Add </Button>
+                            onClick={this.postDataHandler}> Add Food </Button>
                     </div>
                 </div>
             </form>
