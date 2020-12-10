@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Food from '../Food/Food';
+import axios from 'axios';
 
 const useStyles = theme => ({
     fullPost: {
@@ -17,21 +18,49 @@ const useStyles = theme => ({
     edit: {
 
     },
+    padded: {
+        padding: '15px', 
+        margin: '15px',
+    },
 });
 
 class FoodDetail extends Component {
+    state = {
+        loadedFood: null
+    }
+
+    // React hook invoked after component finishes rendering
+    componentDidUpdate() {
+        if (this.props.id) {
+            if (!this.state.loadedFood || (this.state.loadedFood 
+                && this.state.loadedFood.id !== this.props.id)) {
+                // 
+                axios.get('https://jsonplaceholder.typicode.com/posts/'+this.props.id)
+                .then((response) => {
+                    this.setState({loadedFood: response.data})
+                    // console.log(response);
+                });
+            }
+            
+        } 
+    }
+    
     render() {
         const { classes } = this.props;
         let post = <p style={{textAlign:'center'}}>Please select a food item! </p>;
 
         if (this.props.id) {
+            post = <p style={{textAlign:'center'}}> ... Loading ... </p>;
+        }
+
+        if (this.state.loadedFood) {
             post = (
                 <div className={classes.fullPost}>
-                    <h1>{this.props.title}</h1>
-                    <p>{this.props.detail}</p>
-                    <p>{this.props.author}</p>
+                    <h4>{this.state.loadedFood.title}</h4>
+                    <p>{this.state.loadedFood.body}</p>
+                    <p>{this.state.loadedFood.author}</p>
                     <div className={classes.edit}>
-                    <Button variant="contained" color="secondary"> Delete Food </Button>
+                        <Button variant="contained" color="secondary" className={classes.padded}> Delete Food </Button>
                     </div>
                 </div>
             );
