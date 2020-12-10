@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import Food from '../Food/Food';
 import FoodDetail from '../FoodDetail/FoodDetail';
+import NewFood from '../NewFood/NewFood';
 
 const useStyles = theme => ({
     root: {
@@ -34,13 +35,13 @@ class Admin extends Component {
 
   componentDidMount() {
     // Launch an AJAX http request  
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('https://jsonplaceholder.typicode.com/posts/')
     .then(response => {
-      const posts = response.data.slice(0, 5);
+      const posts = response.data.slice(0, 3);
       const updatedPosts =  posts.map(post => {
         return {
           ...post,
-          author: 'Mike'
+          author: 'Jane'
         }
       });
 
@@ -69,7 +70,7 @@ class Admin extends Component {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <h1>FOODS BUILDER</h1>
+                <h1>Moove-fit Foods</h1>
               </Paper>
             </Grid>
             <Grid item xs={12}>
@@ -85,7 +86,9 @@ class Admin extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>FOOTER</Paper>
+              <Paper className={classes.paper}>
+                <NewFood />
+              </Paper>
             </Grid>        
           </Grid>
         </Aux>
