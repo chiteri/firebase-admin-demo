@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../../axios-food';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -19,42 +20,46 @@ const useStyles = theme => ({
 });
 
 class NewFood extends Component {
-    state = {
-        title: '', 
-        content: '',
-        author: 'Joh Doe'
+    constructor() {
+        super();
+
+        this.state = { };
+
+        this.onBlurField = this.onBlurField.bind(this);
+        this.postDataHandler = this.postDataHandler.bind(this);
     }
 
-    postDataHandler = () => {
-        const food = {
-            title: this.state.title,
-            body: this.state.content,
-            author: this.state.author
-        }
+    onBlurField = (event) => {
+        this.setState({[event.target.id] : event.target.value});
+    }
 
-        axios.post('/posts/', food)
+    postDataHandler = () => { 
+        // console.log(this.state); 
+        const newFoodRecord = { ...this.state, created_by: 'Joh Doe'}; // Append some user info to record 
+        axios.post('/foods.json', newFoodRecord)
         .then(response => {
             console.log(response);
-        });
+        })
+        .catch(error => console.log(error));
     }
 
     render() {
         const {classes} = this.props;
         return (
             <form className={classes.root} noValidate autoComplete="off">
+                <h4>Add a new food item ...</h4>
                 <div className={classes.newFood}>
-                    <h4>Add a new food item ...</h4>
-                    <TextField required id="food-name" label="Required" defaultValue="Food name" variant="outlined" />
-                    <TextField required id="calories" label="Required" defaultValue="Calories" variant="outlined" />
-                    <TextField required id="total-fat" label="Required" defaultValue="Total fat" variant="outlined" />
-                    <TextField required id="saturated-fat" label="Required" defaultValue="Food name" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="food_name" label="Required" defaultValue="Food name" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="calories" label="Required" defaultValue="Calories (kcal)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="total_fat" label="Required" defaultValue="Total fat (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="saturated_fat" label="Required" defaultValue="Saturated fat (g)" variant="outlined" />
                 </div>
 
                 <div className={classes.newFood}>
-                    <TextField required id="total-carbs" label="Required" defaultValue="Total carbs" variant="outlined" />
-                    <TextField required id="dietary-fiber" label="Required" defaultValue="Dietary fiber" variant="outlined" />
-                    <TextField required id="protein" label="Required" defaultValue="Protein" variant="outlined" />
-                    <TextField required id="base-serving-size" label="Required" defaultValue="Base serving size" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="total_carbs" label="Required" defaultValue="Total carbs (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="dietary_fiber" label="Required" defaultValue="Dietary fiber (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="protein" label="Required" defaultValue="Protein (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="base_serving_size" label="Required" defaultValue="Base serving size" variant="outlined" />
                     <div className={classes.edit}>
                         <Button 
                             variant="contained" 
