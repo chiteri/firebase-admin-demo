@@ -30,9 +30,10 @@ function FoodItem (props) {
     const classes = useStyles();
     return (
         <article className={classes.foodItem} onClick={props.clicked}>          
-          <h4>{props.title}</h4>
+          <h4>{props.food_name}</h4>
           <div className={classes.info}>
-            <div className={classes.details}>{props.author}</div>
+            <div className={classes.base_serving}>{props.created_by}</div> 
+            <div className={classes.base_serving}>Base size: ({props.base_serving_size} g)</div>
           </div>
         </article>
     );

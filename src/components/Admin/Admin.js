@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-// import axios from 'axios';
-import axios from '../../axios-food';
-import FoodItem from '../FoodItem/FoodItem';
+import axios from 'axios';
+// import axios from '../../axios-food';
+import Foods from '../Food/Foods/Foods';
+// import FoodItem from '../FoodItem/FoodItem';
 import FoodDetail from '../FoodDetail/FoodDetail';
 import NewFood from '../NewFood/NewFood';
+import CircularDeterminateSpinner from '../UI/Spinners/CircularDeterminateSpinner';
 
 const useStyles = theme => ({
     root: {
@@ -30,25 +32,20 @@ const useStyles = theme => ({
 
 class Admin extends Component {
   state = {
-    food_items: [], 
+    food_items: null, 
     selectedFoodId: null,
     error: false
   }
 
   componentDidMount() {
     // Launch an AJAX http request  
-    axios.get('/foods/')
+    axios.get('/foods.json')
     .then(response => {
-      const foods = response.data.slice(0, 3);
-      const updatedFoods =  foods.map(food => {
-        return {
-          ...food,
-          author: 'Jane Doe'
-        }
-      });
-
-      this.setState({food_items: updatedFoods});
-      // console.log(response);
+      this.setState((prevState, props) => {
+        return {food_items: response.data};
+      } 
+      ); // updatedFoods});
+      console.log(this.state.food_items);
     })
     .catch(error => {
       this.setState({error: true})
@@ -65,15 +62,16 @@ class Admin extends Component {
     let food_items = <p style={{textAlign: 'center'}}>Something went wrong ...!</p>;
 
     if (!this.state.error) {
-      food_items = this.state.food_items.map(food_item => {
-        return <FoodItem 
-                  key={food_item.id} 
-                  title={food_item.title} 
-                  description={food_item.body} 
-                  author={food_item.author} 
-                  clicked={() => this.foodSelectedHandler(food_item.id)} />;
+      food_items = <CircularDeterminateSpinner />;
+
+      if (this.state.food_items) {
+        food_items = (
+          <Foods food_items={this.state.food_items} foodSelectedHandler={this.foodSelectedHandler} />
+        );
       }
-      );
+      
+      // return foods;
+      
     }
     
     return (
