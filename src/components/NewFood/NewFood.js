@@ -32,7 +32,7 @@ class NewFood extends Component {
             author: this.state.author
         }
 
-        axios.post('https://jsonplaceholder.typicode.com/posts/', food)
+        axios.post('/posts/', food)
         .then(response => {
             console.log(response);
         });

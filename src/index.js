@@ -5,6 +5,12 @@ import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
 
+// Global configurations to be used in the whole application
+// Set up the base URL on which other paths will be appended to
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 // An interceptor to handle requests
 axios.interceptors.request.use(request => {
   console.log(request); // Do something with the request configurations 

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Food from '../Food/Food';
+// import Food from '../Food/Food';
 import axios from 'axios';
 
 const useStyles = theme => ({
@@ -34,7 +34,7 @@ class FoodDetail extends Component {
             if (!this.state.loadedFood || (this.state.loadedFood 
                 && this.state.loadedFood.id !== this.props.id)) {
                 // 
-                axios.get('https://jsonplaceholder.typicode.com/posts/'+this.props.id)
+                axios.get('/posts/'+this.props.id)
                 .then((response) => {
                     this.setState({loadedFood: response.data})
                     // console.log(response);
@@ -46,7 +46,7 @@ class FoodDetail extends Component {
     
     // Delete an individual food item 
     deleteFoodHandler = () => {
-        axios.delete('https://jsonplaceholder.typicode.com/posts/'+this.props.id)
+        axios.delete('/posts/'+this.props.id)
         .then((response) => {
             console.log(response);
         });

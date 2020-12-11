@@ -36,7 +36,7 @@ class Admin extends Component {
 
   componentDidMount() {
     // Launch an AJAX http request  
-    axios.get('https://jsonplaceholder.typicode.com/posts/')
+    axios.get('/posts/')
     .then(response => {
       const posts = response.data.slice(0, 3);
       const updatedPosts =  posts.map(post => {
