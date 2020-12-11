@@ -30,7 +30,8 @@ const useStyles = theme => ({
 class Admin extends Component {
   state = {
     food_items: [], 
-    selectedFoodId: null
+    selectedFoodId: null, 
+    error: false
   }
 
   componentDidMount() {
@@ -41,12 +42,16 @@ class Admin extends Component {
       const updatedPosts =  posts.map(post => {
         return {
           ...post,
-          author: 'Jane'
+          author: 'Jane Doe'
         }
       });
 
       this.setState({food_items: updatedPosts});
       // console.log(response);
+    })
+    .catch(error => {
+      this.setState({error: true})
+      // console.log(error);
     });
   }
 
@@ -56,15 +61,20 @@ class Admin extends Component {
 
   render() {
     const { classes } = this.props;
-    const food_items = this.state.food_items.map(food => {
-      return <Food 
-                key={food.id} 
-                title={food.title} 
-                description={food.body} 
-                author={food.author} 
-                clicked={() => this.foodSelectedHandler(food.id)} />;
+    let food_items = <p style={{textAlign: 'center'}}>Something went wrong ...!</p>;
+
+    if (!this.state.error) {
+      food_items = this.state.food_items.map(food => {
+        return <Food 
+                  key={food.id} 
+                  title={food.title} 
+                  description={food.body} 
+                  author={food.author} 
+                  clicked={() => this.foodSelectedHandler(food.id)} />;
+      }
+      );
     }
-    );
+    
     return (
         <Aux>
           <Grid container spacing={3}>
