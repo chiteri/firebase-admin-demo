@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 // import axios from 'axios';
-import axios from '../../axios';
-import Food from '../Food/Food';
+import axios from '../../axios-food';
+import FoodItem from '../FoodItem/FoodItem';
 import FoodDetail from '../FoodDetail/FoodDetail';
 import NewFood from '../NewFood/NewFood';
 
@@ -31,23 +31,23 @@ const useStyles = theme => ({
 class Admin extends Component {
   state = {
     food_items: [], 
-    selectedFoodId: null, 
+    selectedFoodId: null,
     error: false
   }
 
   componentDidMount() {
     // Launch an AJAX http request  
-    axios.get('/posts/')
+    axios.get('/foods/')
     .then(response => {
-      const posts = response.data.slice(0, 3);
-      const updatedPosts =  posts.map(post => {
+      const foods = response.data.slice(0, 3);
+      const updatedFoods =  foods.map(food => {
         return {
-          ...post,
+          ...food,
           author: 'Jane Doe'
         }
       });
 
-      this.setState({food_items: updatedPosts});
+      this.setState({food_items: updatedFoods});
       // console.log(response);
     })
     .catch(error => {
@@ -65,13 +65,13 @@ class Admin extends Component {
     let food_items = <p style={{textAlign: 'center'}}>Something went wrong ...!</p>;
 
     if (!this.state.error) {
-      food_items = this.state.food_items.map(food => {
-        return <Food 
-                  key={food.id} 
-                  title={food.title} 
-                  description={food.body} 
-                  author={food.author} 
-                  clicked={() => this.foodSelectedHandler(food.id)} />;
+      food_items = this.state.food_items.map(food_item => {
+        return <FoodItem 
+                  key={food_item.id} 
+                  title={food_item.title} 
+                  description={food_item.body} 
+                  author={food_item.author} 
+                  clicked={() => this.foodSelectedHandler(food_item.id)} />;
       }
       );
     }
