@@ -45,7 +45,7 @@ class Admin extends Component {
         return {food_items: response.data};
       } 
       ); // updatedFoods});
-      console.log(this.state.food_items);
+      // console.log(this.state.food_items);
     })
     .catch(error => {
       this.setState({error: true})
@@ -91,7 +91,8 @@ class Admin extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <FoodDetail id={this.state.selectedFoodId} />
+                <FoodDetail food_id={this.state.selectedFoodId}
+                  food={this.state.food_items? this.state.food_items[this.state.selectedFoodId]: null} />
               </Paper>
             </Grid>
             <Grid item xs={12}>

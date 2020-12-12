@@ -35,7 +35,7 @@ class NewFood extends Component {
 
     postDataHandler = () => { 
         // console.log(this.state); 
-        const newFoodRecord = { ...this.state, created_by: 'Joh Doe'}; // Append some user info to record 
+        const newFoodRecord = { ...this.state, created_by: 'John Doe'}; // Append some user info to record 
         axios.post('/foods.json', newFoodRecord)
         .then(response => {
             console.log(response);
