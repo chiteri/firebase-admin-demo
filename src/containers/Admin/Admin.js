@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import Aux from '../hoc/Auxilliary';
+import Aux from '../../components/hoc/Auxilliary';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 // import axios from '../../axios-food';
-import Foods from '../Food/Foods/Foods';
-// import FoodItem from '../FoodItem/FoodItem';
-import FoodDetail from '../FoodDetail/FoodDetail';
-import NewFood from '../NewFood/NewFood';
-import CircularDeterminateSpinner from '../UI/Spinners/CircularDeterminateSpinner';
+import Foods from '../../components/Food/Foods/Foods';
+// import FoodItem from '../../Component/FoodItem/FoodItem';
+import FoodDetail from '../../components/FoodDetail/FoodDetail';
+import NewFood from '../../components/NewFood/NewFood';
+import CircularDeterminateSpinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 
 const useStyles = theme => ({
     root: {

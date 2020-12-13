@@ -1,5 +1,5 @@
 import React from 'react';
-import Admin from '../components/Admin/Admin';
+import Admin from './Admin/Admin';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
