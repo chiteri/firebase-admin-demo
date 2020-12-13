@@ -1,41 +1,32 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {Component} from 'react';
+import Nutrient from './Nutrient/Nutrient';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-    food: {
-        width: '30%',
-        padding: '16px',
-        textAlign: 'center',
-        border: '1px solid #eee',
-        boxShadow: '0 2px 3px #ccc',
-        margin: '10px',
-        boxSizing: 'border-box',
-        cursor: 'pointer',
-    }, 
-    details: {
-        margin: '16px 0',
-        color: '#ccc',
-    },
-}));
+class Food extends Component {
+    render() {
+        const {classes} = this.props;
+        return (
+            <div className={classes.newFood}>
+                    <TextField required id="food_name" label="Required" defaultValue="Food name" onChange={this.onInputchange} variant="outlined" />
+                    <TextField required id="calories" label="Required" defaultValue="Calories (kcal)" variant="outlined" />
+                    <TextField required id="total_fat" label="Required" defaultValue="Total fat (g)" variant="outlined" />
+                    <TextField required id="saturated_fat" label="Required" defaultValue="Saturated fat (g)" variant="outlined" />
+            </div>
 
-function Food (props) {
-    const classes = useStyles();
-    return (
-        <article className={classes.food} onClick={props.clicked}>          
-          <h4>{props.title}</h4>
-          <div className={classes.info}>
-            <div className={classes.details}>{props.author}</div>
-          </div>
-        </article>
-    );
+            <div className={classes.newFood}>
+            <TextField required id="total_carbs" label="Required" defaultValue="Total carbs (g)" variant="outlined" />
+            <TextField required id="dietary_fiber" label="Required" defaultValue="Dietary fiber (g)" variant="outlined" />
+            <TextField required id="protein" label="Required" defaultValue="Protein (g)" variant="outlined" />
+            <TextField required id="base_serving_size" label="Required" defaultValue="Base serving size" variant="outlined" />
+            <div className={classes.edit}>
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.padded}
+                    onClick={this.postDataHandler}> Add Food </Button>
+            </div>
+            </div>
+        );
+    }
 }
   
 export default Food;
