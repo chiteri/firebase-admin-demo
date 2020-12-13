@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-// import classes from '*.module.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import Food from '../Food/Food';
 // import axios from 'axios';
-import axios from '../../axios-food';
-import CircularDeterminateSpinner from '../UI/Spinners/CircularDeterminateSpinner';
+import axios from '../../../axios-food';
 
 const useStyles = theme => ({
     fullPost: {

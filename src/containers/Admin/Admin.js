@@ -6,11 +6,11 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 // import axios from 'axios';
 import axios from '../../axios-food';
-import Foods from '../../components/Food/Foods/Foods';
+import Foods from '../../containers/Admin/Foods/Foods';
 // import FoodItem from '../../Component/FoodItem/FoodItem';
-import FoodDetail from '../../components/FoodDetail/FoodDetail';
-import NewFood from '../../components/NewFood/NewFood';
-import CircularDeterminateSpinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
+import FoodDetail from './FoodDetail/FoodDetail';
+import NewFood from './NewFood/NewFood';
+// import CircularDeterminateSpinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 
 const useStyles = theme => ({
@@ -22,58 +22,17 @@ const useStyles = theme => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
-    foods: {
-      display: 'flex',
-      flexFlow: 'row wrap',
-      justifyContent: 'center',
-      width: '90%',
-      margin: 'auto',
-    },
 });
 
 class Admin extends Component {
   state = {
     food_items: null, 
-    selectedFoodId: null,
+    selectedFoodId: null, 
     error: false
-  }
-
-  componentDidMount() {
-    // Launch an AJAX http request  
-    axios.get('/foods.json')
-    .then(response => {
-      this.setState((prevState, props) => {
-        return {food_items: response.data};
-      } 
-      ); // updatedFoods});
-      // console.log(this.state.food_items);
-    })
-    .catch(error => {
-      this.setState({error: true})
-      // console.log(error);
-    });
-  }
-
-  foodSelectedHandler = (id) => {
-    this.setState({selectedFoodId: id});
-  }
+  }  
 
   render() {
     const { classes } = this.props;
-    let food_items = <p style={{textAlign: 'center'}}>Something went wrong ...!</p>;
-
-    if (!this.state.error) {
-      food_items = <CircularDeterminateSpinner />;
-
-      if (this.state.food_items) {
-        food_items = (
-          <Foods food_items={this.state.food_items} foodSelectedHandler={this.foodSelectedHandler} />
-        );
-      }
-      
-      // return foods;
-      
-    }
     
     return (
         <Aux>
@@ -85,14 +44,12 @@ class Admin extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <section className={classes.foods}>
-                {food_items}
-                </section>   
+                <Foods />   
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <FoodDetail food_id={this.state.selectedFoodId}
+              <FoodDetail food_id={this.state.selectedFoodId}
                   food={this.state.food_items? this.state.food_items[this.state.selectedFoodId]: null} />
               </Paper>
             </Grid>
