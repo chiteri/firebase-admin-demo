@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import Aux from '../../components/hoc/Auxilliary';
+import Aux from '../hoc/Aux/Auxilliary';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
-// import axios from '../../axios-food';
+// import axios from 'axios';
+import axios from '../../axios-food';
 import Foods from '../../components/Food/Foods/Foods';
 // import FoodItem from '../../Component/FoodItem/FoodItem';
 import FoodDetail from '../../components/FoodDetail/FoodDetail';
 import NewFood from '../../components/NewFood/NewFood';
 import CircularDeterminateSpinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
+import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 
 const useStyles = theme => ({
     root: {
@@ -110,4 +111,4 @@ Admin.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(useStyles)(Admin);
+export default withErrorHandler(withStyles(useStyles)(Admin), axios);
