@@ -9,7 +9,7 @@ import Foods from '../../containers/Admin/Foods/Foods';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
-import {Route} from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 
 const useStyles = theme => ({
     root: {
@@ -56,9 +56,9 @@ class Admin extends Component {
                 <h1>Moove-fit Foods</h1>
                 <nav>
                   <ul className={classes.navigation}>
-                    <li className={classes.navListItem}><a className={classes.anchor} anchor href="/">Home</a></li>
-                    <li className={classes.navListItem}><a className={classes.anchor} anchor href="/all-foods">All Foods</a></li>
-                    <li className={classes.navListItem} ><a className={classes.anchor} href="/new-food">New food</a></li>
+                    <li className={classes.navListItem}><Link className={classes.anchor} to="/">Home</Link></li>
+                    <li className={classes.navListItem}><Link className={classes.anchor} to="/all-foods">All Foods</Link></li>
+                    <li className={classes.navListItem} ><Link className={classes.anchor} to="/new-food">New food</Link></li>
                   </ul>
                 </nav>
               </Paper>
