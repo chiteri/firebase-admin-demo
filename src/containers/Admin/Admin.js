@@ -9,7 +9,7 @@ import Foods from '../../containers/Admin/Foods/Foods';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
-import {Route, Link} from 'react-router-dom';
+import {Route, NavLink} from 'react-router-dom';
 
 const useStyles = theme => ({
     root: {
@@ -35,7 +35,10 @@ const useStyles = theme => ({
     anchor: {
       textDecoration: 'none',
       color: 'black'
-    }
+    }, 
+    activeNav: {
+      color: 'orange',
+    },
 });
 
 class Admin extends Component {
@@ -56,9 +59,26 @@ class Admin extends Component {
                 <h1>Moove-fit Foods</h1>
                 <nav>
                   <ul className={classes.navigation}>
-                    <li className={classes.navListItem}><Link className={classes.anchor} to="/">Home</Link></li>
-                    <li className={classes.navListItem}><Link className={classes.anchor} to="/all-foods">All Foods</Link></li>
-                    <li className={classes.navListItem} ><Link className={classes.anchor} to="/new-food">New food</Link></li>
+                    <li className={classes.navListItem}>
+                      <NavLink 
+                        className={classes.anchor} 
+                        to="/" 
+                        activeClassName="activeNav" 
+                        activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                        exact>HOME</NavLink></li>
+                    <li className={classes.navListItem}>
+                      <NavLink 
+                        className={classes.anchor} 
+                        to="/all-foods" 
+                        activeClassName="activeNav" 
+                        activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                        exact>ALL FOODS</NavLink></li>
+                    <li className={classes.navListItem} >
+                      <NavLink className={classes.anchor} 
+                      to="/new-food" 
+                      activeClassName="activeNav" 
+                      activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                      exact>NEW FOOD</NavLink></li>
                   </ul>
                 </nav>
               </Paper>
