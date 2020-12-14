@@ -1,4 +1,5 @@
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 import Admin from './Admin/Admin';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,9 +13,11 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Admin />
-    </div>
+    <BrowserRouter>
+      <div className={classes.root}>
+        <Admin />
+      </div>
+    </BrowserRouter>
   );
 }
 

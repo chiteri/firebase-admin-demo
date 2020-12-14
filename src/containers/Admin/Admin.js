@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-// import axios from 'axios';
 import axios from '../../axios-food';
 import Foods from '../../containers/Admin/Foods/Foods';
-// import FoodItem from '../../Component/FoodItem/FoodItem';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
-// import CircularDeterminateSpinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
+import {Route} from 'react-router-dom';
 
 const useStyles = theme => ({
     root: {
@@ -22,6 +20,22 @@ const useStyles = theme => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+
+    navigation: {
+      listStyle: 'none',
+      margin: '0',
+      padding: '0',
+      width: '100%',
+      textAlign: 'center'
+    },
+    navListItem: {
+      display: 'inline-block',
+      margin: '20px'
+    },
+    anchor: {
+      textDecoration: 'none',
+      color: 'black'
+    }
 });
 
 class Admin extends Component {
@@ -40,22 +54,22 @@ class Admin extends Component {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <h1>Moove-fit Foods</h1>
+                <nav>
+                  <ul className={classes.navigation}>
+                    <li className={classes.navListItem}><a className={classes.anchor} anchor href="/">Home</a></li>
+                    <li className={classes.navListItem}><a className={classes.anchor} anchor href="/all-foods">All Foods</a></li>
+                    <li className={classes.navListItem} ><a className={classes.anchor} href="/new-food">New food</a></li>
+                  </ul>
+                </nav>
               </Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Foods />   
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-              <FoodDetail food_id={this.state.selectedFoodId}
-                  food={this.state.food_items? this.state.food_items[this.state.selectedFoodId]: null} />
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <NewFood />
+                <Route path="/" exact component={Foods} />
+                <Route path="/all-foods" exact component={Foods} />
+                <Route path="/new-food" exact component={NewFood} />
+                <Route path="/food" exact render="<FoodDetail food_id={this.state.selectedFoodId}
+                  food={this.state.food_items? this.state.food_items[this.state.selectedFoodId]: null} />" />
               </Paper>
             </Grid>        
           </Grid>
