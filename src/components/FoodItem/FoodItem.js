@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +35,7 @@ function FoodItem (props) {
           <div className={classes.info}>
             <div className={classes.base_serving}>{props.created_by}</div> 
             <div className={classes.base_serving}>Base serving: ({props.base_serving_size} g)</div>
+            <Link to={'/food/'+props.food_id} >More details</Link>
           </div>
         </article>
     );
