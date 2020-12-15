@@ -64,20 +64,20 @@ class Admin extends Component {
                         className={classes.anchor} 
                         to="/" 
                         activeClassName="activeNav" 
-                        activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                        activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
                         exact>HOME</NavLink></li>
                     <li className={classes.navListItem}>
                       <NavLink 
                         className={classes.anchor} 
                         to="/all-foods" 
                         activeClassName="activeNav" 
-                        activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                        activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
                         exact>ALL FOODS</NavLink></li>
                     <li className={classes.navListItem} >
                       <NavLink className={classes.anchor} 
                       to="/new-food" 
                       activeClassName="activeNav" 
-                      activeStyle={{color: '#75B74A', fontWeight: 'bold', border: '3px solid black', padding: '15px'}} 
+                      activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
                       exact>NEW FOOD</NavLink></li>
                   </ul>
                 </nav>
@@ -85,11 +85,10 @@ class Admin extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Route path="/" exact component={Foods} />
                 <Route path="/all-foods" exact component={Foods} />
-                <Route path="/new-food" exact component={NewFood} />
-                <Route path="/food" exact render="<FoodDetail food_id={this.state.selectedFoodId}
-                  food={this.state.food_items? this.state.food_items[this.state.selectedFoodId]: null} />" />
+                <Route path="/food/:id" exact component={FoodDetail} />
+                <Route path="/new-food" exact component={NewFood} />  
+                <Route path="/" exact component={Foods} />              
               </Paper>
             </Grid>        
           </Grid>

@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 // import axios from 'axios';
 import axios from '../../../axios-food';
+import CircularDeterminateSpinner from '../../../components/UI/Spinners/CircularDeterminateSpinner';
 
 const useStyles = theme => ({
     fullPost: {
@@ -29,16 +30,22 @@ class FoodDetail extends Component {
     }
 
     // React hook invoked after component finishes rendering
-    componentDidUpdate() {
-        console.log('IDxxx: '+this.props.id);
-        if (this.props.id) {
-            console.log('IDyyy: '+this.props.id);
+    componentDidMount() {
+        // console.log('IDxxx: '+this.props.match.params.id);
+        if (this.props.match.params.id) {
+            // console.log('IDyyy: '+this.props.match.params.id);
             if (!this.state.loadedFood || (this.state.loadedFood 
-                && this.state.loadedFood.id !== this.props.id)) {
+                && this.state.loadedFood.id !== this.props.match.params.id)) {
                 // 
-                console.log('IDzzz: '+this.props.id);
-                axios.get('/foods.json'+this.props.id)
+                console.log('IDzzz: '+this.props.match.params.id);
+                axios.get('/foods/'+this.props.match.params.id+'.json')
                 .then((response) => {
+                    this.setState({loadedFood: response.data});
+                    /* this.setState((prevState, props) => {
+                        return {loadedFood: response.data};
+                        } 
+                    ); */
+                    // this.setState({loadedFood: response.data});
                     console.log(response);
                 })
                 .catch(error => {
@@ -47,13 +54,14 @@ class FoodDetail extends Component {
                   });
             }
             
-        } 
+        }
     }
     
     // Delete an individual food item 
-    deleteFoodHandler = () => {
-        axios.delete('foods/'+this.props.id)
+    deleteFoodHandler = (foodID) => {
+        axios.delete('/foods/'+foodID+'.json')
         .then((response) => {
+            console.log('Deletion status')
             console.log(response);
         });
     }
@@ -62,30 +70,30 @@ class FoodDetail extends Component {
         const { classes } = this.props;
         let food = <p style={{textAlign:'center'}}>Please select a food item! </p>;
 
-        if (this.props.food) {
+        if (this.props.match.params.id) {
             food = <p style={{textAlign:'center'}}> ... Loading ... </p>;
         }
 
-        // if (!this.state.error) {
-            // food = <p style={{textAlign:'center'}}> <CircularDeterminateSpinner  /> </p>;
+        if (!this.state.error) {
+            food = <p style={{textAlign:'center'}}> <CircularDeterminateSpinner  /> </p>;
 
-        if (this.props.food) {
-            food = (
-                <div className={classes.fullPost}>
-                    <h4>{this.props.food.food_name}</h4>
-                    <p>{this.props.food.base_serving_size}</p>
-                    <p>{this.props.food.created_by}</p>
-                    <div className={classes.edit}>
-                        <Button 
-                            variant="contained" 
-                            color="secondary" 
-                            className={classes.padded}
-                            onClick={() => this.deleteFoodHandler(this.props.food.food_id)}> Delete Food </Button>
+            if (this.state.loadedFood) {
+                food = (
+                    <div className={classes.fullPost}>
+                        <h4>{this.state.loadedFood.food_name}</h4>
+                        <p>{this.state.loadedFood.base_serving_size}</p>
+                        <p>{this.state.loadedFood.created_by}</p>
+                        <div className={classes.edit}>
+                            <Button 
+                                variant="contained" 
+                                color="secondary" 
+                                className={classes.padded}
+                                onClick={() => this.deleteFoodHandler(this.state.loadedFood.food_id)}> Delete Food </Button>
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            }
         }
-        // }
 
         return food;
     }

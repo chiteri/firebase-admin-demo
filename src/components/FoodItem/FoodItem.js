@@ -33,7 +33,7 @@ function FoodItem (props) {
           <h4>{props.food_name}</h4>
           <div className={classes.info}>
             <div className={classes.base_serving}>{props.created_by}</div> 
-            <div className={classes.base_serving}>Base size: ({props.base_serving_size} g)</div>
+            <div className={classes.base_serving}>Base serving: ({props.base_serving_size} g)</div>
           </div>
         </article>
     );
