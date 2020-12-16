@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import axios from '../../../axios-food';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import {Redirect} from 'react-router-dom';
 
 const useStyles = theme => ({    
     root: {
@@ -20,6 +21,10 @@ const useStyles = theme => ({
 });
 
 class NewFood extends Component {
+    state = {
+        submitted: false
+    };
+
     constructor() {
         super();
 
@@ -38,6 +43,7 @@ class NewFood extends Component {
         const newFoodRecord = { ...this.state, created_by: 'John Doe'}; // Append some user info to record 
         axios.post('/foods.json', newFoodRecord)
         .then(response => {
+            this.setState({submitted: true});
             console.log(response);
         })
         .catch(error => console.log(error));
@@ -45,8 +51,15 @@ class NewFood extends Component {
 
     render() {
         const {classes} = this.props;
+        let redirect = null;
+
+        if (this.state.submitted){
+            redirect = <Redirect to='/all-foods' />;
+        }
+
         return (
             <form className={classes.root} noValidate autoComplete="off">
+                {redirect}
                 <h4>Add a new food item ...</h4>
                 <div className={classes.newFood}>
                     <TextField onBlur={this.onBlurField} required id="food_name" label="Food name" defaultValue="Food name" variant="outlined" />

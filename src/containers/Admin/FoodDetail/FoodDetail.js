@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import axios from '../../../axios-food';
 import CircularDeterminateSpinner from '../../../components/UI/Spinners/CircularDeterminateSpinner';
 import SimpleFoodTable from '../../../components/UI/Tables/SimpleFoodTable/SimpleFoodTable';
+import {Redirect} from 'react-router-dom';
 
 const useStyles = theme => ({
     fullPost: {
@@ -27,7 +28,8 @@ const useStyles = theme => ({
 class FoodDetail extends Component {
     state = {
         loadedFood: null, 
-        error: false
+        error: false,
+        deleted: false
     }
 
     // React hook invoked after component finishes rendering
@@ -62,6 +64,7 @@ class FoodDetail extends Component {
     deleteFoodHandler = (foodID) => {
         axios.delete('/foods/'+foodID+'.json')
         .then((response) => {
+            this.setState({deleted: true});
             console.log(response);
         });
     }
@@ -75,6 +78,14 @@ class FoodDetail extends Component {
     
     render() {
         const { classes } = this.props;
+
+        // set up component for redirection 
+        let redirect = null;
+
+        if (this.state.deleted){
+            redirect = <Redirect to='/all-foods' />;
+        }
+
         let food = <p style={{textAlign:'center'}}>Please select a food item! </p>;
 
         if (this.props.match.params.id) {
@@ -87,6 +98,7 @@ class FoodDetail extends Component {
             if (this.state.loadedFood) {
                 food = (
                     <div className={classes.fullPost}>
+                        {redirect}
                         <h4>{this.state.loadedFood.food_name}</h4>
                         <SimpleFoodTable food={this.state.loadedFood} />
                         <div className={classes.edit}>
