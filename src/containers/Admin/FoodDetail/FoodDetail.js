@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 // import axios from 'axios';
 import axios from '../../../axios-food';
 import CircularDeterminateSpinner from '../../../components/UI/Spinners/CircularDeterminateSpinner';
+import SimpleFoodTable from '../../../components/UI/Tables/SimpleFoodTable/SimpleFoodTable';
 
 const useStyles = theme => ({
     fullPost: {
@@ -37,7 +38,7 @@ class FoodDetail extends Component {
             if (!this.state.loadedFood || (this.state.loadedFood 
                 && this.state.loadedFood.id !== this.props.match.params.id)) {
                 // 
-                console.log('IDzzz: '+this.props.match.params.id);
+                // console.log('IDzzz: '+this.props.match.params.id);
                 axios.get('/foods/'+this.props.match.params.id+'.json')
                 .then((response) => {
                     this.setState({loadedFood: response.data});
@@ -81,8 +82,7 @@ class FoodDetail extends Component {
                 food = (
                     <div className={classes.fullPost}>
                         <h4>{this.state.loadedFood.food_name}</h4>
-                        <p>{this.state.loadedFood.base_serving_size}</p>
-                        <p>{this.state.loadedFood.created_by}</p>
+                        <SimpleFoodTable food={this.state.loadedFood} />
                         <div className={classes.edit}>
                             <Button 
                                 variant="contained" 
