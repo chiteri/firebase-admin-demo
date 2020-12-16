@@ -41,7 +41,7 @@ class FoodDetail extends Component {
                 // console.log('IDzzz: '+this.props.match.params.id);
                 axios.get('/foods/'+this.props.match.params.id+'.json')
                 .then((response) => {
-                    this.setState({loadedFood: response.data});
+                    this.setState({loadedFood: {...response.data, food_id: this.props.match.params.id}});
                     /* this.setState((prevState, props) => {
                         return {loadedFood: response.data};
                         } 
@@ -62,7 +62,6 @@ class FoodDetail extends Component {
     deleteFoodHandler = (foodID) => {
         axios.delete('/foods/'+foodID+'.json')
         .then((response) => {
-            console.log('Deletion status')
             console.log(response);
         });
     }
