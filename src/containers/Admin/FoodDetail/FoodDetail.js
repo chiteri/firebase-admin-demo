@@ -65,6 +65,13 @@ class FoodDetail extends Component {
             console.log(response);
         });
     }
+
+    demoErrorMessage = (foodID) => {
+        axios.delete('/foodssss/'+foodID+'xyzjson')
+        .then((response) => {
+            console.log(response);
+        });
+    }
     
     render() {
         const { classes } = this.props;
@@ -88,6 +95,12 @@ class FoodDetail extends Component {
                                 color="secondary" 
                                 className={classes.padded}
                                 onClick={() => this.deleteFoodHandler(this.state.loadedFood.food_id)}> Delete Food </Button>
+
+                            <Button 
+                                variant="contained" 
+                                color="primary" 
+                                className={classes.padded}
+                                onClick={() => this.demoErrorMessage(this.state.loadedFood.food_id)}> Demo Error </Button>
                         </div>
                     </div>
                 );

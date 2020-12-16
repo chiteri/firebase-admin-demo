@@ -49,17 +49,17 @@ class NewFood extends Component {
             <form className={classes.root} noValidate autoComplete="off">
                 <h4>Add a new food item ...</h4>
                 <div className={classes.newFood}>
-                    <TextField onBlur={this.onBlurField} required id="food_name" label="Required" defaultValue="Food name" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="calories" label="Required" defaultValue="Calories (kcal)" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="total_fat" label="Required" defaultValue="Total fat (g)" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="saturated_fat" label="Required" defaultValue="Saturated fat (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="food_name" label="Food name" defaultValue="Food name" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="calories" label="Calories" defaultValue="Calories (kcal)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="total_fat" label="Total fat" defaultValue="Total fat (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="saturated_fat" label="Saturated fat" defaultValue="Saturated fat (g)" variant="outlined" />
                 </div>
 
                 <div className={classes.newFood}>
-                    <TextField onBlur={this.onBlurField} required id="total_carbs" label="Required" defaultValue="Total carbs (g)" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="dietary_fiber" label="Required" defaultValue="Dietary fiber (g)" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="protein" label="Required" defaultValue="Protein (g)" variant="outlined" />
-                    <TextField onBlur={this.onBlurField} required id="base_serving_size" label="Required" defaultValue="Base serving size" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="total_carbs" label="Total carbs" defaultValue="Total carbs (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="dietary_fiber" label="Dietary fibre" defaultValue="Dietary fiber (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="protein" label="Protein" defaultValue="Protein (g)" variant="outlined" />
+                    <TextField onBlur={this.onBlurField} required id="base_serving_size" label="Base serving size" defaultValue="Base serving size" variant="outlined" />
                     <div className={classes.edit}>
                         <Button 
                             variant="contained" 
