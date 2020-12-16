@@ -9,7 +9,7 @@ import Foods from '../../containers/Admin/Foods/Foods';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
-import {Route, NavLink} from 'react-router-dom';
+import {Route, NavLink, Switch} from 'react-router-dom';
 
 const useStyles = theme => ({
     root: {
@@ -66,13 +66,6 @@ class Admin extends Component {
                         activeClassName="activeNav" 
                         activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
                         exact>HOME</NavLink></li>
-                    <li className={classes.navListItem}>
-                      <NavLink 
-                        className={classes.anchor} 
-                        to="/all-foods" 
-                        activeClassName="activeNav" 
-                        activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
-                        exact>ALL FOODS</NavLink></li>
                     <li className={classes.navListItem} >
                       <NavLink className={classes.anchor} 
                       to="/new-food" 
@@ -85,10 +78,12 @@ class Admin extends Component {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Route path="/all-foods" exact component={Foods} />
-                <Route path="/food/:id" exact component={FoodDetail} />
-                <Route path="/new-food" exact component={NewFood} />  
-                <Route path="/" exact component={Foods} />              
+                <Switch>
+                  <Route path="/" exact component={Foods} />
+                  <Route path="/new-food" exact component={NewFood} />  
+                  <Route path="/all-foods" exact component={Foods} />
+                  <Route path="/food/:id" exact component={FoodDetail} />  
+                </Switch>          
               </Paper>
             </Grid>        
           </Grid>
