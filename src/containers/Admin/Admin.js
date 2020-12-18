@@ -8,6 +8,7 @@ import axios from '../../axios-food';
 import Foods from '../../containers/Admin/Foods/Foods';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
+import Auth from '../Auth/Auth';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {Route, NavLink, Switch} from 'react-router-dom';
 
@@ -43,6 +44,7 @@ const useStyles = theme => ({
 
 class Admin extends Component {
   state = {
+    auth: false,
     food_items: null, 
     selectedFoodId: null, 
     error: false
@@ -72,6 +74,12 @@ class Admin extends Component {
                       activeClassName="activeNav" 
                       activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
                       exact>NEW FOOD</NavLink></li>
+                    <li className={classes.navListItem} >
+                      <NavLink className={classes.anchor} 
+                      to="/auth" 
+                      activeClassName="activeNav" 
+                      activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
+                      exact>LOGIN</NavLink></li>
                   </ul>
                 </nav>
               </Paper>
@@ -79,10 +87,11 @@ class Admin extends Component {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Switch>
-                  <Route path="/" exact component={Foods} />
-                  <Route path="/new-food" exact component={NewFood} />  
-                  <Route path="/all-foods" exact component={Foods} />
-                  <Route path="/food/:id" exact component={FoodDetail} />  
+                  { !this.state.auth ? <Route path="/" exact component={Auth} /> : null }
+                  { this.state.auth ? <Route path="/" exact component={Foods} /> : null }
+                  { this.state.auth ? <Route path="/new-food" exact component={NewFood} />  : null }
+                  { this.state.auth ? <Route path="/all-foods" exact component={Foods} /> : null }
+                  { this.state.auth ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
                 </Switch>          
               </Paper>
             </Grid>        
