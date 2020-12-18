@@ -34,17 +34,25 @@ class Auth extends Component {
     constructor() {
         super();
 
-        this.state = { };
+        this.state = { 
+            isSignUp: false
+        };
 
         this.onBlurField = this.onBlurField.bind(this);
-        this.loginHandler = this.loginHandler.bind(this);
+        this.authHandler = this.authHandler.bind(this);
     }
 
     onBlurField = (event) => {
         this.setState({[event.target.id] : event.target.value});
     }
 
-    loginHandler = (event) => {
+    switchAuthModeHandler = () => {
+        this.setState(prevState => {
+            return {isSignUp: !prevState.isSignUp};
+        });
+    }
+
+    authHandler = (event) => {
         event.preventDefault(); // Prevent page from reloading
 
         const authData = {
@@ -52,35 +60,20 @@ class Auth extends Component {
             password: this.state.password,
             returnSecureToken: true
         };
-        const authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]';
+
+        let authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]';
+
+        if (this.state.isSignUp) {
+            authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
+        }
 
         axios.post(authURL, authData)
         .then(response => {
             this.setState({auth: response.data});
+            alert(response.data);
             console.log(response);
         })
         .catch((err) => {
-            console.log(err);
-        });
-    }
-
-    signUpHandler = (event) => {
-        event.preventDefault(); // Prevent page from reloading
-
-        const authData = {
-            email: this.state.email,
-            password: this.state.password,
-            returnSecureToken: true
-        };
-        const authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
-
-        axios.post(authURL, authData)
-        .then(response => {
-            alert(response);
-            console.log(response);
-        })
-        .catch((err) => {
-            // 
             alert(err);
             console.log(err);
         });
@@ -107,10 +100,10 @@ class Auth extends Component {
                     </Grid>
                     <Paper variant="elevation"elevation={2}className="login-background">
                         <Grid item>
-                            <Typography component="h1" variant="h5">Sign in</Typography>
+                            <Typography component="h6" variant="h6">Account</Typography>
                         </Grid>
                         <Grid item></Grid>
-                        <form className={classes.root} onSubmit={this.loginHandler} noValidate autoComplete="off">
+                        <form className={classes.root} onSubmit={this.authHandler} noValidate autoComplete="off">
                             <Grid container direction="column" spacing={2}>
                                 <Grid item>
                                     <TextField onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
@@ -124,16 +117,17 @@ class Auth extends Component {
                                         variant="contained" 
                                         color="primary"
                                         className={classes.padded}
-                                        onClick={this.loginHandler}> Login </Button>
-
-                                    <Button 
-                                        variant="contained" 
-                                        color="primary"
-                                        className={classes.padded}
-                                        onClick={this.signUpHandler}> SignUp </Button>
+                                        onClick={this.authHandler}> SUBMIT </Button>
                                 </Grid>
                             </Grid>
                         </form>
+                        <Grid item>
+                            <Button 
+                                variant="contained" 
+                                color="secondary"
+                                className={classes.padded}
+                                onClick={this.switchAuthModeHandler}> SWITCH TO {this.state.isSignUp? 'SIGNIN' : 'SIGNUP'} </Button>
+                        </Grid>
                     </Paper>
                 </Grid>
             </Grid>
