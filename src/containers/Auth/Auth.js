@@ -9,6 +9,7 @@ import  AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import * as actions from '../../store/actions/index';
 
 // Manage authentication and sessions 
 import {connect} from 'react-redux';
@@ -57,6 +58,9 @@ class Auth extends Component {
 
     authHandler = (event) => {
         event.preventDefault(); // Prevent page from reloading
+
+        // 
+        this.props.onAuth(this.state.email, this.state.password)
 
         const authData = {
             email: this.state.email,
@@ -152,4 +156,10 @@ const mapStateToProps = state => {
     };
 }
 
-export default withStyles(useStyles)(connect(mapStateToProps)(Auth));
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email, password) => dispatch(actions.auth(email, password))
+    };
+}
+
+export default withStyles(useStyles)(connect(null, mapDispatchToProps)(Auth));
