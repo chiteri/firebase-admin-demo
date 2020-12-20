@@ -10,6 +10,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 
+// Manage authentication and sessions 
+import {connect} from 'react-redux';
+
 const useStyles = theme => ({
     root: {
       display: 'flex',
@@ -69,12 +72,15 @@ class Auth extends Component {
 
         axios.post(authURL, authData)
         .then(response => {
-            this.setState({auth: response.data});
-            alert(response.data);
-            console.log(response);
+            if (this.state.isSignUp) {
+                this.setState({idToken: response.data.idToken, userId: response.data.localId});
+            }
+            // alert(response.data);
+            console.log(response.data);
         })
         .catch((err) => {
-            alert(err);
+            // alert(err);
+            this.setState({error: true});
             console.log(err);
         });
     }
@@ -140,4 +146,10 @@ Auth.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(useStyles)(Auth);
+const mapStateToProps = state => {
+    return {
+            auth: state.authData
+    };
+}
+
+export default withStyles(useStyles)(connect(mapStateToProps)(Auth));

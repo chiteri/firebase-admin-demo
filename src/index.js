@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import './index.css';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import axios from 'axios';
+import reducer from './store/reducer';
+
+const store = createStore(reducer);
 
 // Global configurations to be used in the whole application
 // Set up the base URL on which other paths will be appended to
@@ -37,7 +42,7 @@ axios.interceptors.response.use(response => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}><App /></Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
