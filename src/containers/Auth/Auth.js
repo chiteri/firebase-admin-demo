@@ -8,7 +8,7 @@ import  Paper from '@material-ui/core/Paper';
 import  AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import axios from 'axios';
+// import axios from 'axios';
 import * as actions from '../../store/actions/index';
 
 // Manage authentication and sessions 
@@ -58,10 +58,8 @@ class Auth extends Component {
 
     authHandler = (event) => {
         event.preventDefault(); // Prevent page from reloading
-
-        // const method = this.state.isSignUp;
-        // 
-        this.props.onAuth(this.state.email, this.state.password);
+         
+        this.props.onAuth(this.state.email, this.state.password, this.state.isSignUp);
     }
 
     render() {
@@ -133,7 +131,7 @@ Auth.propTypes = {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password))
+        onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp))
     };
 }
 

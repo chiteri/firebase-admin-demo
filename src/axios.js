@@ -5,6 +5,6 @@ const instance = axios.create({
     baseURL: 'https://moove-fit-demo-default-rtdb.firebaseio.com/',
 });
 
-instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
+// instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
 
 export default instance;

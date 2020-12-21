@@ -23,8 +23,8 @@ const store = createStore(rootReducer, composeEnhancers(
 // Global configurations to be used in the whole application
 // Set up the base URL on which other paths will be appended to
 axios.defaults.baseURL = 'https://moove-fit-demo-default-rtdb.firebaseio.com/';
-axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+// axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // An interceptor to handle requests
 axios.interceptors.request.use(request => {
