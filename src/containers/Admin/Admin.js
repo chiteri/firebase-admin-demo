@@ -47,7 +47,7 @@ const useStyles = theme => ({
 
 class Admin extends Component {
   state = {
-    auth: false,
+    auth: null,
     food_items: null, 
     selectedFoodId: null, 
     error: false
@@ -70,7 +70,7 @@ class Admin extends Component {
                         to="/" 
                         activeClassName="activeNav" 
                         activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
-                        exact>HOME</NavLink></li>
+                        exact>HOME </NavLink></li>
                     <li className={classes.navListItem} >
                       <NavLink className={classes.anchor} 
                       to="/new-food" 
@@ -82,7 +82,7 @@ class Admin extends Component {
                       to="/auth" 
                       activeClassName="activeNav" 
                       activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
-                      exact>LOGIN</NavLink></li>
+                      exact>{this.props.userEmail? '('+this.props.userEmail+')' : null} </NavLink></li>
                   </ul>
                 </nav>
               </Paper>
@@ -110,7 +110,8 @@ Admin.propTypes = {
 
 const mapStateToProps = state => {
   return {
-          token: state.auth.token
+          token: state.auth.token, 
+          userEmail: state.auth.userEmail
   };
 }
 

@@ -7,21 +7,25 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {Redirect} from 'react-router-dom';
 
+// Manage authentication and sessions 
+import {connect} from 'react-redux';
+
 const useStyles = theme => ({    
     root: {
         '& .MuiTextField-root': {
         margin: theme.spacing(1),
         width: '25ch',
-        },
-        padded: {
-            padding: '15px', 
-            margin: '15px',
-        },
+    },
+    padded: {
+        padding: '15px',
+        margin: '15px',
+    },
     },
 });
 
 class NewFood extends Component {
     state = {
+        auth: null,
         submitted: false
     };
 
@@ -38,9 +42,9 @@ class NewFood extends Component {
         this.setState({[event.target.id] : event.target.value});
     }
 
-    postDataHandler = () => { 
+    postDataHandler = () => {
         // console.log(this.state); 
-        const newFoodRecord = { ...this.state, created_by: 'John Doe'}; // Append some user info to record 
+        const newFoodRecord = { ...this.state, created_by: this.props.userEmail}; // Append some user info to record 
         axios.post('/foods.json', newFoodRecord)
         .then(response => {
             this.setState({submitted: true});
@@ -89,5 +93,12 @@ class NewFood extends Component {
 NewFood.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = state => {
+    return {
+        token: state.auth.token,
+        userEmail: state.auth.userEmail
+    };
+}
   
-export default withStyles(useStyles)(NewFood);
+export default withStyles(useStyles)(connect(mapStateToProps)(NewFood));

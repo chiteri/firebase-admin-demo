@@ -137,7 +137,8 @@ const mapStateToProps = state => {
     return {
             loading: state.auth.loading, 
             error: state.auth.error,
-            token: state.auth.token
+            token: state.auth.token,
+            userEmail: state.auth.userEmail
     };
 }
 
