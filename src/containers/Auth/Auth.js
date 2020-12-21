@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Spinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 // import axios from 'axios';
 import * as actions from '../../store/actions/index';
+import {Redirect} from 'react-router-dom';
 
 // Manage authentication and sessions 
 import {connect} from 'react-redux';
@@ -85,8 +86,16 @@ class Auth extends Component {
             );
         }
 
+        // set up component for redirection 
+        let redirect = null;
+
+        if (this.props.token){
+            redirect = <Redirect to='/all-foods' />;
+        }
+
         return (
             <div>
+            {redirect}
             <AppBar position="static" alignitems="center" color="primary">
                 <Toolbar>
                     <Grid container justify="center" wrap="wrap">
@@ -141,7 +150,8 @@ Auth.propTypes = {
 const mapStateToProps = state => {
     return {
             loading: state.auth.loading, 
-            error: state.auth.error
+            error: state.auth.error,
+            token: state.auth.token
     };
 }
 

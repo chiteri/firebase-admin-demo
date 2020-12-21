@@ -12,6 +12,9 @@ import Auth from '../Auth/Auth';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {Route, NavLink, Switch} from 'react-router-dom';
 
+// Manage authentication and sessions 
+import {connect} from 'react-redux';
+
 const useStyles = theme => ({
     root: {
       flexGrow: 1,
@@ -87,11 +90,11 @@ class Admin extends Component {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Switch>
-                  { !this.state.auth ? <Route path="/" exact component={Auth} /> : null }
-                  { this.state.auth ? <Route path="/" exact component={Foods} /> : null }
-                  { this.state.auth ? <Route path="/new-food" exact component={NewFood} />  : null }
-                  { this.state.auth ? <Route path="/all-foods" exact component={Foods} /> : null }
-                  { this.state.auth ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
+                  { !this.props.token ? <Route path="/" exact component={Auth} /> : null }
+                  { this.props.token ? <Route path="/" exact component={Foods} /> : null }
+                  { this.props.token ? <Route path="/new-food" exact component={NewFood} />  : null }
+                  { this.props.token ? <Route path="/all-foods" exact component={Foods} /> : null }
+                  { this.props.token ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
                 </Switch>          
               </Paper>
             </Grid>        
@@ -105,4 +108,10 @@ Admin.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withErrorHandler(withStyles(useStyles)(Admin), axios);
+const mapStateToProps = state => {
+  return {
+          token: state.auth.token
+  };
+}
+
+export default withErrorHandler(withStyles(useStyles)(connect(mapStateToProps)(Admin)), axios);
