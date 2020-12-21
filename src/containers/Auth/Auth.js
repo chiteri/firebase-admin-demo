@@ -59,34 +59,9 @@ class Auth extends Component {
     authHandler = (event) => {
         event.preventDefault(); // Prevent page from reloading
 
+        // const method = this.state.isSignUp;
         // 
-        this.props.onAuth(this.state.email, this.state.password)
-
-        const authData = {
-            email: this.state.email,
-            password: this.state.password,
-            returnSecureToken: true
-        };
-
-        let authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]';
-
-        if (this.state.isSignUp) {
-            authURL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
-        }
-
-        axios.post(authURL, authData)
-        .then(response => {
-            if (this.state.isSignUp) {
-                this.setState({idToken: response.data.idToken, userId: response.data.localId});
-            }
-            // alert(response.data);
-            console.log(response.data);
-        })
-        .catch((err) => {
-            // alert(err);
-            this.setState({error: true});
-            console.log(err);
-        });
+        this.props.onAuth(this.state.email, this.state.password);
     }
 
     render() {
@@ -150,11 +125,11 @@ Auth.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
+/* const mapStateToProps = state => {
     return {
             auth: state.authData
     };
-}
+} */
 
 const mapDispatchToProps = dispatch => {
     return {
