@@ -5,9 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import  Paper from '@material-ui/core/Paper';
-import  AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import aux from '../hoc/Aux/Auxilliary';
 import Spinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 // import axios from 'axios';
 import * as actions from '../../store/actions/index';
@@ -67,12 +65,13 @@ class Auth extends Component {
     render() {
         const {classes} = this.props;
 
-        let form = (<div><Grid item>
-                        <TextField onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
+        let form = (<aux><Grid item>
+                        <TextField className={classes.padded} onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
                     </Grid>
                     <Grid item>
                         <TextField onBlur={this.onBlurField} required id="password" label="Password" defaultValue="Password" variant="outlined" />
-                    </Grid></div>);
+                    </Grid>
+                    </aux>);
 
         if (this.props.loading) {
             form = <Spinner />;
@@ -96,25 +95,12 @@ class Auth extends Component {
         return (
             <div>
             {redirect}
-            <AppBar position="static" alignitems="center" color="primary">
-                <Toolbar>
-                    <Grid container justify="center" wrap="wrap">
-                        <Grid item>
-                            <Typography variant="h6">Moove-fit</Typography>
-                        </Grid>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
             <Grid container spacing={0} justify="center" direction="row">
                 <Grid item>
-                    <Grid containerdirection="column"justify="center"spacing={2}className="login-form">
+                    <Grid containerdirection="column"justify="center" spacing={2} className="login-form">
 
                     </Grid>
-                    <Paper variant="elevation"elevation={2}className="login-background">
-                        <Grid item>
-                            <Typography component="h6" variant="h6">Account</Typography>
-                        </Grid>
-                        <Grid item></Grid>
+                    <Paper variant="elevation"elevation={2} className="login-background">                        
                         <form className={classes.root} onSubmit={this.authHandler} noValidate autoComplete="off">
                             <Grid container direction="column" spacing={2}>
                                 {form}                            
