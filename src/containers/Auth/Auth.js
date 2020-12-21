@@ -66,7 +66,7 @@ class Auth extends Component {
         const {classes} = this.props;
 
         let form = (<aux><Grid item>
-                        <TextField className={classes.padded} onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
+                        <TextField className={classes.padded} onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="user@example.com" variant="outlined" />
                     </Grid>
                     <Grid item>
                         <TextField onBlur={this.onBlurField} required id="password" label="Password" defaultValue="Password" variant="outlined" />

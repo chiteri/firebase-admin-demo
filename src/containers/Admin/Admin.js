@@ -9,6 +9,7 @@ import Foods from '../../containers/Admin/Foods/Foods';
 import FoodDetail from './FoodDetail/FoodDetail';
 import NewFood from './NewFood/NewFood';
 import Auth from '../Auth/Auth';
+import Logout from '../../containers/Auth/Logout/Logout';
 import withErrorHandler from '../hoc/withErrorHandler/withErrorHandler';
 import {Route, NavLink, Switch} from 'react-router-dom';
 
@@ -69,20 +70,26 @@ class Admin extends Component {
                         className={classes.anchor} 
                         to="/" 
                         activeClassName="activeNav" 
-                        activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
+                        activeStyle={{color: '#3F51B5', fontWeight: 'bold', padding: '15px'}} 
                         exact>HOME </NavLink></li>
                     <li className={classes.navListItem} >
                       <NavLink className={classes.anchor} 
                       to="/new-food" 
                       activeClassName="activeNav" 
-                      activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
-                      exact>NEW FOOD</NavLink></li>
+                      activeStyle={{color: '#3F51B5', fontWeight: 'bold', padding: '15px'}} 
+                      exact>{this.props.isAuthenticated? 'NEW FOOD' : null }</NavLink></li>
                     <li className={classes.navListItem} >
                       <NavLink className={classes.anchor} 
-                      to="/auth" 
+                      to="/profile" 
                       activeClassName="activeNav" 
-                      activeStyle={{color: '#75B74A', fontWeight: 'bold', padding: '15px'}} 
+                      activeStyle={{color: '#3F51B5', fontWeight: 'bold', padding: '15px'}} 
                       exact>{this.props.userEmail? '('+this.props.userEmail+')' : null} </NavLink></li>
+                    <li className={classes.navListItem} >
+                      <NavLink className={classes.anchor} 
+                      to="/logout" 
+                      activeClassName="activeNav" 
+                      activeStyle={{color: '#3F51B5', fontWeight: 'bold', padding: '15px'}} 
+                      exact>{this.props.isAuthenticated? 'LOGOUT' : null} </NavLink></li>
                   </ul>
                 </nav>
               </Paper>
@@ -92,6 +99,7 @@ class Admin extends Component {
                 <Switch>
                   { !this.props.token ? <Route path="/" exact component={Auth} /> : null }
                   { this.props.token ? <Route path="/" exact component={Foods} /> : null }
+                  { this.props.token ? <Route path="/logout" exact component={Logout} /> : null }
                   { this.props.token ? <Route path="/new-food" exact component={NewFood} />  : null }
                   { this.props.token ? <Route path="/all-foods" exact component={Foods} /> : null }
                   { this.props.token ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
@@ -110,8 +118,9 @@ Admin.propTypes = {
 
 const mapStateToProps = state => {
   return {
-          token: state.auth.token, 
-          userEmail: state.auth.userEmail
+    isAuthenticated: state.auth.token !== null,
+    token: state.auth.token, 
+    userEmail: state.auth.userEmail
   };
 }
 
