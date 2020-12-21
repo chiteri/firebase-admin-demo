@@ -8,6 +8,7 @@ import  Paper from '@material-ui/core/Paper';
 import  AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Spinner from '../../components/UI/Spinners/CircularDeterminateSpinner';
 // import axios from 'axios';
 import * as actions from '../../store/actions/index';
 
@@ -65,6 +66,25 @@ class Auth extends Component {
     render() {
         const {classes} = this.props;
 
+        let form = (<div><Grid item>
+                        <TextField onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
+                    </Grid>
+                    <Grid item>
+                        <TextField onBlur={this.onBlurField} required id="password" label="Password" defaultValue="Password" variant="outlined" />
+                    </Grid></div>);
+
+        if (this.props.loading) {
+            form = <Spinner />;
+        }
+
+        let errorMessage = null;
+
+        if (this.props.error) {
+            errorMessage = (
+                <p>{this.props.error.message}</p>
+            );
+        }
+
         return (
             <div>
             <AppBar position="static" alignitems="center" color="primary">
@@ -88,14 +108,9 @@ class Auth extends Component {
                         <Grid item></Grid>
                         <form className={classes.root} onSubmit={this.authHandler} noValidate autoComplete="off">
                             <Grid container direction="column" spacing={2}>
+                                {form}                            
                                 <Grid item>
-                                    <TextField onBlur={this.onBlurField} required id="email" label="Email address" defaultValue="Email address" variant="outlined" />
-                                </Grid>
-                                <Grid item>
-                                    <TextField onBlur={this.onBlurField} required id="password" label="Password" defaultValue="Password" variant="outlined" />
-                                </Grid>
-                            
-                                <Grid item>
+                                    {errorMessage}
                                     <Button 
                                         variant="contained" 
                                         color="primary"
@@ -123,11 +138,12 @@ Auth.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-/* const mapStateToProps = state => {
+const mapStateToProps = state => {
     return {
-            auth: state.authData
+            loading: state.auth.loading, 
+            error: state.auth.error
     };
-} */
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -135,4 +151,4 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export default withStyles(useStyles)(connect(null, mapDispatchToProps)(Auth));
+export default withStyles(useStyles)(connect(mapStateToProps, mapDispatchToProps)(Auth));
