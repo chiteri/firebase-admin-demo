@@ -97,12 +97,12 @@ class Admin extends Component {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Switch>
-                  { !this.props.token ? <Route path="/" exact component={Auth} /> : null }
-                  { this.props.token ? <Route path="/" exact component={Foods} /> : null }
-                  { this.props.token ? <Route path="/logout" exact component={Logout} /> : null }
-                  { this.props.token ? <Route path="/new-food" exact component={NewFood} />  : null }
-                  { this.props.token ? <Route path="/all-foods" exact component={Foods} /> : null }
-                  { this.props.token ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
+                  { !this.props.isAuthenticated ? <Route path="/" exact component={Auth} /> : null }
+                  { this.props.isAuthenticated ? <Route path="/" exact component={Foods} /> : null }
+                  { this.props.isAuthenticated ? <Route path="/logout" exact component={Logout} /> : null }
+                  { this.props.isAuthenticated ? <Route path="/new-food" exact component={NewFood} />  : null }
+                  { this.props.isAuthenticated ? <Route path="/all-foods" exact component={Foods} /> : null }
+                  { this.props.isAuthenticated ? <Route path="/food/:id" exact component={FoodDetail} />  : null }
                 </Switch>          
               </Paper>
             </Grid>        
